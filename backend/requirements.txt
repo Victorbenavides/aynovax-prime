@@ -1,0 +1,19 @@
+# --- AynovaX Backend Dependencies ---
+
+# Core API Framework
+# Using "standard" to get uvicorn and other optimal defaults automatically
+fastapi[standard]>=0.115.0
+
+# Data Science & Processing (The "Analyst" Stack)
+# Pinning versions to ensure reproducibility across environments
+pandas>=2.2.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+
+# Utilities
+python-dotenv>=1.0.0   # To manage secrets/env variables securely
+pydantic-settings>=2.0.0 # Robust configuration management
+
+# Dev Tools
+black     # Code formatter
+isort     # Import sorter
