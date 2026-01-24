@@ -1,10 +1,3 @@
-"""
-AynovaX - Data Schemas
-----------------------
-Defines the structure for input data (Request) and output data (Response).
-Using Pydantic allows for automatic validation and documentation generation.
-"""
-
 from pydantic import BaseModel, Field
 
 class MachineSensorData(BaseModel):
