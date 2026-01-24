@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
-from sqlalchemy import func # <--- IMPORTANTE: Necesario para sumar
+from sqlalchemy import func
 from typing import List
 from fastapi.responses import FileResponse
 from app.reports import generate_pdf_report 
@@ -13,7 +13,7 @@ from datetime import datetime
 from typing import Optional
 
 # Initialize App & DB
-app = FastAPI(title="AynovaX Intelligent Core", version="2.5.0")
+app = FastAPI(title="Aynovax Prime Twin")
 
 @app.on_event("startup")
 def on_startup():
@@ -34,16 +34,14 @@ ai_service = QualityPredictionService()
 def health_check():
     return {"status": "ONLINE"}
 
-# --- NUEVO ENDPOINT PARA KPIS REALES ---
+# --- KPIS ---
 @app.get("/api/v1/kpi")
 def get_kpis(session: Session = Depends(get_session)):
-    """Calcula el total histórico de ganancias y tickets"""
-    # 1. Suma total de dinero (Profit)
+    """Tickets Counting"""
     total_profit = session.exec(select(func.sum(PredictionLog.financial_impact))).first()
     if total_profit is None: 
         total_profit = 0.0
         
-    # 2. Conteo total de tickets
     ticket_count = session.exec(select(func.count(PredictionLog.id)).where(PredictionLog.maintenance_ticket.isnot(None))).first()
     
     return {"netProfit": total_profit, "openTickets": ticket_count}

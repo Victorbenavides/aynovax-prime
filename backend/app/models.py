@@ -1,4 +1,3 @@
-
 from sqlmodel import SQLModel, Field
 from datetime import datetime
 from typing import Optional
@@ -17,7 +16,7 @@ class PredictionLog(SQLModel, table=True):
     pressure: float
     vibration: float
     
-    # Outputs
+    # Outputs       
     prediction: str
     confidence: float
     recommendation: str

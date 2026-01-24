@@ -1,17 +1,9 @@
-"""
-AynovaX - Inference Service
----------------------------
-Handles the loading of the ML artifact and encapsulates the prediction logic.
-It acts as the bridge between the raw model and the API controller.
-"""
-
 import joblib
 import numpy as np
 import pandas as pd
 from datetime import datetime
 from pathlib import Path
 
-# Define path relative to where the app is running
 MODEL_PATH = Path("app/artifacts/production_model.joblib")
 
 class QualityPredictionService:
@@ -34,21 +26,21 @@ class QualityPredictionService:
         """
         Runs the inference and adds business context (Recommendations).
         """
-        # Prepare input as a DataFrame (keeping column names matches training step)
+        #  DataFrame
         input_df = pd.DataFrame([{
             'temperature_c': temperature,
             'pressure_bar': pressure,
             'vibration_hz': vibration
         }])
 
-        # 1. Get Prediction
+        # 1. Predicciones / predicts
         prediction = self.model.predict(input_df)[0]
         
-        # 2. Get Probabilities (Confidence)
+        # 2. Probabiliddes / probs
         probs = self.model.predict_proba(input_df)
         confidence = np.max(probs) 
 
-        # 3. Generate Human-Readable Recommendation
+        # 3. recomendacion para leer mejor / better read
         recommendation = self._generate_recommendation(prediction, temperature, pressure)
 
         financial_impact = 0.0
@@ -62,7 +54,8 @@ class QualityPredictionService:
         elif "Critical" in prediction:
             financial_impact = -1200.00 
             ticket_required = True
-            
+
+            # todos los status stats
         return {
             "status": prediction,
             "confidence_score": round(confidence, 4),
@@ -71,6 +64,7 @@ class QualityPredictionService:
             "financial_impact": financial_impact,
             "ticket_required": ticket_required
         }
+    #genera recomendaciones 
     def _generate_recommendation(self, status, temp, pressure):
         """Dynamic logic to assist the human operator."""
         if status == "Approved":

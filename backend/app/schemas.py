@@ -18,6 +18,5 @@ class PredictionResponse(BaseModel):
     recommendation: str = Field(..., description="Actionable insight")
     processed_at: str = Field(..., description="ISO timestamp")
     
-    # --- ¡ESTOS DOS SON OBLIGATORIOS PARA LA V3.0! ---
     financial_impact: float = Field(..., description="Calculated profit or loss")
     ticket_required: bool = Field(..., description="Maintenance flag")
