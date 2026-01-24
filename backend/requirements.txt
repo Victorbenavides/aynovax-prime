@@ -1,7 +1,4 @@
-# --- AynovaX Backend Dependencies ---
-
 # Core API Framework
-# Using "standard" to get uvicorn and other optimal defaults automatically
 fastapi[standard]>=0.115.0
 
 # Data Science & Processing (The "Analyst" Stack)
