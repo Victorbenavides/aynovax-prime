@@ -1,10 +1,3 @@
-"""
-AynovaX - Reporting Engine
---------------------------
-Generates professional PDF documents for executive summaries.
-Transforms raw database logs into actionable business intelligence documents.
-"""
-
 from fpdf import FPDF
 from datetime import datetime
 import os
